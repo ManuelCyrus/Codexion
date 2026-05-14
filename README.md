@@ -1,3 +1,7 @@
+
+*This project has been created as part
+of the 42 curriculum by mkisala*
+
 # Codexion Master
 
 A concurrent programming simulation in C inspired by the classic Dining Philosophers problem.
