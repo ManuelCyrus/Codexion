@@ -1,30 +1,28 @@
+NAME = codexion
 
-NAME        = codexion
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -pthread
 
-CC          = cc
-CFLAGS      = -Wall -Wextra -Werror -pthread -Iinclude
+SRCS = \
+	src/main.c \
+	src/init.c
 
-SRCS_DIR    = src
-OBJS_DIR    = objs
-SRCS        = $(SRCS_DIR)/main.c \
-              $(SRCS_DIR)/heap.c \
-              $(SRCS_DIR)/simulation.c \
-              $(SRCS_DIR)/utils.c
-
-OBJS        = $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	@mkdir -p $(OBJS_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
 clean:
-	rm -rf $(OBJS_DIR)
+	rm -f $(OBJS)
+
 fclean: clean
 	rm -f $(NAME)
+
 re: fclean all
 
-.PHONY: all clean fclean re
+run: all
+	./$(NAME) 5 800 200 200 200 5 50 fifo
+
+.PHONY: all clean fclean re run
